@@ -12,8 +12,8 @@ public class SocketIO {
     private PrintWriter out;
 
     public SocketIO(Socket socket) throws IOException {
-        in  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+        createReadStream(socket);
+        createWriteStream(socket);
     }
 
     public String readFromSocket() throws IOException {
@@ -22,6 +22,14 @@ public class SocketIO {
 
     public void writeToSocket(String input) {
         out.println(input);
+    }
+
+    private void createReadStream(Socket socket) throws IOException {
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    }
+
+    private void createWriteStream(Socket socket) throws IOException {
+        out = new PrintWriter(socket.getOutputStream(), true);
     }
 
 }
