@@ -18,16 +18,20 @@ public class EchoClient {
     }
 
     public void start() throws IOException {
-        echo();
+        echoStdIn();
     }
 
-    private void echo() throws IOException {
+    private void echoStdIn() throws IOException {
         String input = stdIn.readLine();
         if (input != null) {
-            socketIO.writeToSocket(input);
-            stdOut.println("echo: " + socketIO.readFromSocket());
-            echo();
+            sendReceive(input);
+            echoStdIn();
         }
+    }
+
+    private void sendReceive(String input) throws IOException {
+        socketIO.writeToSocket(input);
+        stdOut.println("echo: " + socketIO.readFromSocket());
     }
 
     private void createReader(InputStream stdIn) {
