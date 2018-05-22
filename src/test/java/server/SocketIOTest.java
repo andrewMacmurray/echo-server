@@ -2,6 +2,7 @@ package server;
 
 import org.junit.Before;
 import org.junit.Test;
+import socket.SocketIO;
 
 import java.io.*;
 import java.net.Socket;

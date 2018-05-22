@@ -1,3 +1,5 @@
+package client;
+
 import client.EchoClient;
 
 import java.io.IOException;

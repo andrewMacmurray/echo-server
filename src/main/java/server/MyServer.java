@@ -1,3 +1,5 @@
+package server;
+
 import server.EchoServer;
 
 import java.io.IOException;

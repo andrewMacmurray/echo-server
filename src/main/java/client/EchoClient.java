@@ -1,6 +1,6 @@
 package client;
 
-import server.SocketIO;
+import socket.SocketIO;
 
 import java.io.*;
 import java.net.Socket;
