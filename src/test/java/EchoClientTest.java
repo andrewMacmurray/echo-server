@@ -1,5 +1,4 @@
-package client;
-
+import client.EchoClient;
 import org.junit.Before;
 import org.junit.Test;
 

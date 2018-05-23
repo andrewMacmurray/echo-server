@@ -1,7 +1,6 @@
-package server;
-
 import org.junit.Before;
 import org.junit.Test;
+import server.EchoServer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
