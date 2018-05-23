@@ -1,4 +1,5 @@
 import client.EchoClient;
+import mocks.MockSocket;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -6,9 +7,6 @@ import java.io.*;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class EchoClientTest {
 
@@ -20,8 +18,6 @@ public class EchoClientTest {
 
     @Before
     public void setup() throws IOException {
-        mockClientSocket = mock(Socket.class);
-
         mockSystemIn = new ByteArrayInputStream("hello".getBytes());
         mockSystemOutBytes = new ByteArrayOutputStream();
         mockSystemOut = new PrintStream(mockSystemOutBytes);
@@ -29,8 +25,7 @@ public class EchoClientTest {
         ByteArrayInputStream socketInputStream = new ByteArrayInputStream("hello".getBytes());
         socketOutputStream = new ByteArrayOutputStream();
 
-        when(mockClientSocket.getInputStream()).thenReturn(socketInputStream);
-        when(mockClientSocket.getOutputStream()).thenReturn(socketOutputStream);
+        mockClientSocket = new MockSocket(socketInputStream, socketOutputStream);
     }
 
     @Test

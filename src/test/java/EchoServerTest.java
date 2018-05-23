@@ -1,3 +1,5 @@
+import mocks.MockServerSocket;
+import mocks.MockSocket;
 import org.junit.Before;
 import org.junit.Test;
 import server.EchoServer;
@@ -9,8 +11,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class EchoServerTest {
 
@@ -24,17 +24,8 @@ public class EchoServerTest {
         inputStream = new ByteArrayInputStream("hello".getBytes());
         outputStream = new ByteArrayOutputStream();
 
-        mockClientSocket = mock(Socket.class);
-        mockServerSocket = mock(ServerSocket.class);
-
-        configureMocks();
-    }
-
-    private void configureMocks() throws IOException {
-        when(mockClientSocket.getInputStream()).thenReturn(inputStream);
-        when(mockClientSocket.getOutputStream()).thenReturn(outputStream);
-
-        when(mockServerSocket.accept()).thenReturn(mockClientSocket);
+        mockClientSocket = new MockSocket(inputStream, outputStream);
+        mockServerSocket = new MockServerSocket(mockClientSocket);
     }
 
     @Test

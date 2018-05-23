@@ -1,29 +1,26 @@
+import mocks.MockSocket;
 import org.junit.Before;
 import org.junit.Test;
 import socket.SocketIO;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SocketIOTest {
 
     private Socket mockSocket;
-    private OutputStream outputStream;
-    private InputStream inputStream;
+    private ByteArrayOutputStream outputStream;
     private final String testInput = "hello";
 
     @Before
     public void setup() throws IOException {
-        mockSocket = mock(Socket.class);
         outputStream = new ByteArrayOutputStream();
-        inputStream = new ByteArrayInputStream(testInput.getBytes());
-
-        when(mockSocket.getOutputStream()).thenReturn(outputStream);
-        when(mockSocket.getInputStream()).thenReturn(inputStream);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(testInput.getBytes());
+        mockSocket = new MockSocket(inputStream, outputStream);
     }
 
     @Test
