@@ -8,34 +8,28 @@ import java.net.Socket;
 public class EchoClient {
 
     private SocketIO socketIO;
-    private BufferedReader stdIn;
-    private PrintStream stdOut;
+    private StdIO stdIO;
 
-    public EchoClient(Socket socket, InputStream stdIn, PrintStream stdOut) throws IOException {
+    public EchoClient(Socket socket, InputStream in, PrintStream out) throws IOException {
         socketIO = new SocketIO(socket);
-        createReader(stdIn);
-        this.stdOut = stdOut;
+        stdIO = new StdIO(in, out);
     }
 
     public void start() throws IOException {
-        echoStdIn();
+        echoInput();
     }
 
-    private void echoStdIn() throws IOException {
-        String input = stdIn.readLine();
+    private void echoInput() throws IOException {
+        String input = stdIO.readLine();
         if (input != null) {
             sendReceive(input);
-            echoStdIn();
+            echoInput();
         }
     }
 
     private void sendReceive(String input) throws IOException {
         socketIO.writeToSocket(input);
-        stdOut.println("echo: " + socketIO.readFromSocket());
-    }
-
-    private void createReader(InputStream stdIn) {
-        this.stdIn = new BufferedReader(new InputStreamReader(stdIn));
+        stdIO.println("echo: " + socketIO.readFromSocket());
     }
 
 }
