@@ -31,11 +31,9 @@ public class EchoServerTest {
     }
 
     private void configureMocks() throws IOException {
-        // clientSocket
         when(mockClientSocket.getInputStream()).thenReturn(inputStream);
         when(mockClientSocket.getOutputStream()).thenReturn(outputStream);
 
-        // serverSocket
         when(mockServerSocket.accept()).thenReturn(mockClientSocket);
     }
 
