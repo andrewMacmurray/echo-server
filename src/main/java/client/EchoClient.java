@@ -10,9 +10,9 @@ public class EchoClient {
     private SocketIO socketIO;
     private StdIO stdIO;
 
-    public EchoClient(Socket socket, InputStream in, PrintStream out) throws IOException {
+    public EchoClient(Socket socket, StdIO stdIO) throws IOException {
         socketIO = new SocketIO(socket);
-        stdIO = new StdIO(in, out);
+        this.stdIO = stdIO;
     }
 
     public void start() throws IOException {

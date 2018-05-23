@@ -10,7 +10,8 @@ public class MyClient {
     public static void main(String[] args) {
         try {
             Socket socket = new Socket("localhost", 8000);
-            EchoClient echoClient = new EchoClient(socket, System.in, System.out);
+            StdIO stdIO = new StdIO(System.in, System.out);
+            EchoClient echoClient = new EchoClient(socket, stdIO);
             echoClient.start();
         } catch (IOException e) {
             System.out.println(e.getMessage());

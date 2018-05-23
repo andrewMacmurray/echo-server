@@ -1,4 +1,5 @@
 import client.EchoClient;
+import client.StdIO;
 import mocks.MockSocket;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,26 +12,26 @@ import static org.junit.Assert.assertEquals;
 public class EchoClientTest {
 
     private ByteArrayOutputStream mockSystemOutBytes;
-    private PrintStream mockSystemOut;
-    private InputStream mockSystemIn;
     private ByteArrayOutputStream socketOutputStream;
+    private StdIO stdIO;
     private Socket mockClientSocket;
 
     @Before
     public void setup() throws IOException {
-        mockSystemIn = new ByteArrayInputStream("hello".getBytes());
+        InputStream mockSystemIn = new ByteArrayInputStream("hello".getBytes());
         mockSystemOutBytes = new ByteArrayOutputStream();
-        mockSystemOut = new PrintStream(mockSystemOutBytes);
+        PrintStream mockSystemOut = new PrintStream(mockSystemOutBytes);
 
         ByteArrayInputStream socketInputStream = new ByteArrayInputStream("hello".getBytes());
         socketOutputStream = new ByteArrayOutputStream();
 
+        stdIO = new StdIO(mockSystemIn, mockSystemOut);
         mockClientSocket = new MockSocket(socketInputStream, socketOutputStream);
     }
 
     @Test
     public void echoToSocket() throws IOException {
-        EchoClient echoClient = new EchoClient(mockClientSocket, mockSystemIn, mockSystemOut);
+        EchoClient echoClient = new EchoClient(mockClientSocket, stdIO);
         echoClient.start();
 
         assertEquals("hello", socketOutputStream.toString().trim());
@@ -38,7 +39,7 @@ public class EchoClientTest {
 
     @Test
     public void printEcho() throws IOException {
-        EchoClient echoClient = new EchoClient(mockClientSocket, mockSystemIn, mockSystemOut);
+        EchoClient echoClient = new EchoClient(mockClientSocket, stdIO);
         echoClient.start();
 
         assertEquals("echo: hello", mockSystemOutBytes.toString().trim());
