@@ -3,22 +3,17 @@ Java echo server that echos back requests from a client
 
 ## Run the server
 
-first build the jars with
+
+Start the echo server with:
 
 ```$xslt
-> ./gradlew assemble
-```
-
-Then start the echo server with:
-
-```$xslt
-> java -jar build/libs/echo-server-1.0-SNAPSHOT.jar
+> ./gradlew runServer --console=plain 
 ```
 
 And connect to it with the echo client:
 
 ```$xslt
-> java -jar build/libs/echo-client-1.0-SNAPSHOT.jar
+> ./gradlew runClient --console=plain 
 ```
 
 You can then type a message into the echo client and it should echo your message back
