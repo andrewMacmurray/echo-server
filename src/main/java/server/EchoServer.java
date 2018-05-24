@@ -10,7 +10,7 @@ public class EchoServer {
     private ServerSocket serverSocket;
     private SocketIO socketIO;
 
-    public EchoServer(ServerSocket serverSocket) throws IOException {
+    public EchoServer(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
 

@@ -1,9 +1,6 @@
 package socket;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class SocketIO {
@@ -12,8 +9,8 @@ public class SocketIO {
     private PrintWriter out;
 
     public SocketIO(Socket socket) throws IOException {
-        createReadStream(socket);
-        createWriteStream(socket);
+        createReadStream(socket.getInputStream());
+        createWriteStream(socket.getOutputStream());
     }
 
     public String readFromSocket() throws IOException {
@@ -24,12 +21,12 @@ public class SocketIO {
         out.println(input);
     }
 
-    private void createReadStream(Socket socket) throws IOException {
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    private void createReadStream(InputStream in) {
+        this.in = new BufferedReader(new InputStreamReader(in));
     }
 
-    private void createWriteStream(Socket socket) throws IOException {
-        out = new PrintWriter(socket.getOutputStream(), true);
+    private void createWriteStream(OutputStream out) {
+        this.out = new PrintWriter(out, true);
     }
 
 }
